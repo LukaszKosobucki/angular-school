@@ -1,0 +1,15 @@
+{
+    "book": [
+      {
+        "id": 1,
+        "title": "Harry Potter",
+        "author": "J.K. Rowling"
+      }
+    ],
+    "user": [
+      {
+        "name": "Tomasz",
+        "login": "twawrzyn"
+      }
+    ]
+  }
