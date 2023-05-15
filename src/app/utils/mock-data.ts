@@ -1,22 +1,28 @@
+const cardNames = [
+  'name',
+  'surname',
+  'date',
+  'ssn',
+  'phoneNumber',
+  'img',
+  'email',
+  'city',
+  'street',
+  'postcode',
+  'country',
+  'voivodeship',
+] as const;
+
+export type CardName = (typeof cardNames)[number];
+
 export type Card = {
-  name: string;
-  surname: string;
-  date: string;
-  ssn: string;
-  phoneNumber: string;
-  img: string;
-  email: string;
-  city: string;
-  street: string;
-  postcode: string;
-  country: string;
-  voivodeship: string;
+  [key in CardName]: string;
 };
 
 export const CARDS: Card[] = [
   {
     name: 'John',
-    surname: 'Wick',
+    surname: 'aWick',
     date: '01/09/1939',
     ssn: '74041042657',
     phoneNumber: '213769420',
@@ -29,8 +35,8 @@ export const CARDS: Card[] = [
     voivodeship: 'voivodeship',
   },
   {
-    name: 'John',
-    surname: 'Wick',
+    name: 'aJohn',
+    surname: 'vWick',
     date: '01/09/1939',
     ssn: '74041042657',
     phoneNumber: '213769420',
@@ -43,8 +49,8 @@ export const CARDS: Card[] = [
     voivodeship: 'voivodeship',
   },
   {
-    name: 'John',
-    surname: 'Wick',
+    name: 'nJohn',
+    surname: 'bWick',
     date: '01/09/1939',
     ssn: '74041042657',
     phoneNumber: '213769420',
@@ -57,7 +63,7 @@ export const CARDS: Card[] = [
     voivodeship: 'voivodeship',
   },
   {
-    name: 'John',
+    name: 'bJohn',
     surname: 'Wick',
     date: '01/09/1939',
     ssn: '74041042657',

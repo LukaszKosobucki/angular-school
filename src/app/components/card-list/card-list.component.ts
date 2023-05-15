@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Card } from 'src/app/utils/mock-data';
 import { PatientService } from 'src/app/services/patient.service';
 
@@ -10,6 +10,10 @@ import { PatientService } from 'src/app/services/patient.service';
 
 //change this component name to patient-card-list
 export class CardListComponent implements OnInit {
+  @Input() orderBy!: boolean;
+
+  @Input() param!: 'name' | 'surname' | 'date' | 'ssn';
+
   cards: Card[] = [];
 
   constructor(private patientService: PatientService) {}

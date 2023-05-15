@@ -15,9 +15,9 @@ import { NewPatientComponent } from './pages/new-patient/new-patient.component';
 import { NewCardComponent } from './components/card-list/new-card/new-card.component';
 import { NewPatientFormComponent } from './components/new-patient-form/new-patient-form.component';
 import { FilterBoxComponent } from './components/filter-box/filter-box.component';
-import { SortButtonComponent } from './components/sort-button/sort-button.component';
 import { EditPatientComponent } from './pages/edit-patient/edit-patient.component';
 import { EditPatientFormComponent } from './components/edit-patient-form/edit-patient-form.component';
+import { SortByPipe } from './pipes/sort-by.pipe';
 
 @NgModule({
   declarations: [
@@ -33,9 +33,9 @@ import { EditPatientFormComponent } from './components/edit-patient-form/edit-pa
     NewCardComponent,
     NewPatientFormComponent,
     FilterBoxComponent,
-    SortButtonComponent,
     EditPatientComponent,
     EditPatientFormComponent,
+    SortByPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
