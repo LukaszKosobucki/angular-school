@@ -18,7 +18,7 @@ export const FORMINPUTLIST: FormInput[] = [
   {
     text: 'date of birth',
     id: 'date',
-    type: 'text',
+    type: 'date',
   },
   {
     text: 'ssn',

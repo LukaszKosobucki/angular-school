@@ -1,5 +1,5 @@
 <div class="container-sm">
-  <as-filter-box></as-filter-box>
+  <as-filter-box [(multiFilter)]="multiFilter"></as-filter-box>
   <as-sort-bar [(orderBy)]="orderBy" [(param)]="param"></as-sort-bar>
-  <as-card-list [param]="param" [orderBy]="orderBy"></as-card-list>
+  <as-card-list [param]="param" [orderBy]="orderBy" [multiFilter]="multiFilter"></as-card-list>
 </div>

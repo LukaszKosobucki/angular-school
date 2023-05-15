@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { Component, OnInit } from '@angular/core';
 import { FormInputsService } from 'src/app/services/form-inputs.service';
 import { FormInput } from 'src/app/utils/form-inputs';
@@ -9,7 +10,7 @@ import { ssnValidator } from 'src/app/utils/ssnValidator';
 type NewPatientFormType = {
   name: FormControl<string>;
   surname: FormControl<string>;
-  date: FormControl<string>;
+  date: FormControl<Date>;
   ssn: FormControl<string>;
   phoneNumber: FormControl<string>;
   img: FormControl<string>;
@@ -38,7 +39,7 @@ export class NewPatientFormComponent implements OnInit {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(2), Validators.maxLength(120)],
     }),
-    date: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    date: new FormControl<Date>(new Date(), { nonNullable: true, validators: [Validators.required] }),
     ssn: new FormControl<string>('', { nonNullable: true, validators: [Validators.required, ssnValidator()] }),
     phoneNumber: new FormControl<string>('', { nonNullable: true, validators: [Validators.minLength(9), Validators.maxLength(9)] }),
     img: new FormControl<string>('', {
@@ -60,7 +61,8 @@ export class NewPatientFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.patientService.newPatient(this.newPatientForm.getRawValue());
+    const patient = this.newPatientForm.getRawValue();
+    this.patientService.newPatient({ ...patient, date: patient.date.toLocaleDateString() });
     this.router.navigate(['/homepage']);
   }
 }

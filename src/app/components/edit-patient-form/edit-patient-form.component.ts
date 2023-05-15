@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { Component, OnInit, Input } from '@angular/core';
 import { FormInputsService } from 'src/app/services/form-inputs.service';
 import { FormInput } from 'src/app/utils/form-inputs';
@@ -10,7 +11,7 @@ import { ssnValidator } from 'src/app/utils/ssnValidator';
 type EditPatientFormType = {
   name: FormControl<string>;
   surname: FormControl<string>;
-  date: FormControl<string>;
+  date: FormControl<Date>;
   ssn: FormControl<string>;
   phoneNumber: FormControl<string>;
   img: FormControl<string>;
@@ -43,7 +44,7 @@ export class EditPatientFormComponent implements OnInit {
       nonNullable: true,
       validators: [Validators.required, Validators.maxLength(120)],
     }),
-    date: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    date: new FormControl<Date>(new Date(), { nonNullable: true, validators: [Validators.required] }),
     ssn: new FormControl<string>('', { nonNullable: true, validators: [Validators.required, ssnValidator()] }),
     phoneNumber: new FormControl<string>('', { nonNullable: true, validators: [Validators.minLength(9), Validators.maxLength(9)] }),
     img: new FormControl<string>('', {
@@ -63,11 +64,13 @@ export class EditPatientFormComponent implements OnInit {
   ngOnInit(): void {
     this.formInputList = this.formInputsService.getFormInputs();
     this.patient = this.patientService.getPatient(Number(this.patientId));
-    this.editPatientForm.setValue(this.patient);
+    this.editPatientForm.setValue({ ...this.patient, date: new Date(this.patient.date) });
   }
 
   onSubmit(): void {
-    this.patientService.editPatient(Number(this.patientId), this.editPatientForm.getRawValue());
+    const patient = this.editPatientForm.getRawValue();
+    this.patientService.editPatient(Number(this.patientId), { ...patient, date: patient.date.toLocaleDateString() });
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.router.navigate(['/homepage']);
   }
 }

@@ -18,6 +18,7 @@ import { FilterBoxComponent } from './components/filter-box/filter-box.component
 import { EditPatientComponent } from './pages/edit-patient/edit-patient.component';
 import { EditPatientFormComponent } from './components/edit-patient-form/edit-patient-form.component';
 import { SortByPipe } from './pipes/sort-by.pipe';
+import { FilterByPipe } from './pipes/filter-by.pipe';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { SortByPipe } from './pipes/sort-by.pipe';
     EditPatientComponent,
     EditPatientFormComponent,
     SortByPipe,
+    FilterByPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
