@@ -1,8 +1,8 @@
 <div class="container">
   <div class="container text-center">
     <div class="row">
-      <as-new-card></as-new-card>
-      <as-card *ngFor="let card of cards; index as i" [card]="card" [index]="i" class="col"></as-card>
+      <as-new-card class="col-3"></as-new-card>
+      <as-card *ngFor="let card of cards; index as i" [card]="card" [index]="i" class="col-3"></as-card>
     </div>
   </div>
 </div>

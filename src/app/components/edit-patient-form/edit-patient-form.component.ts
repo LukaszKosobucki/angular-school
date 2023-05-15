@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormInputsService } from 'src/app/services/form-inputs.service';
 import { FormInput } from 'src/app/utils/form-inputs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PatientService } from 'src/app/services/patient.service';
+import { Card } from 'src/app/utils/mock-data';
 import { Router } from '@angular/router';
 import { ssnValidator } from 'src/app/utils/ssnValidator';
 
-type NewPatientFormType = {
+type EditPatientFormType = {
   name: FormControl<string>;
   surname: FormControl<string>;
   date: FormControl<string>;
@@ -22,21 +23,25 @@ type NewPatientFormType = {
 };
 
 @Component({
-  selector: 'as-new-patient-form',
-  templateUrl: './new-patient-form.component.html',
-  styleUrls: ['./new-patient-form.component.scss'],
+  selector: 'as-edit-patient-form',
+  templateUrl: './edit-patient-form.component.html',
+  styleUrls: ['./edit-patient-form.component.scss'],
 })
-export class NewPatientFormComponent implements OnInit {
+export class EditPatientFormComponent implements OnInit {
   formInputList: FormInput[] = [];
 
-  newPatientForm = new FormGroup<NewPatientFormType>({
+  @Input() patientId!: string | null;
+
+  patient!: Card;
+
+  editPatientForm = new FormGroup<EditPatientFormType>({
     name: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(2), Validators.maxLength(120)],
+      validators: [Validators.required, Validators.maxLength(120)],
     }),
     surname: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(2), Validators.maxLength(120)],
+      validators: [Validators.required, Validators.maxLength(120)],
     }),
     date: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     ssn: new FormControl<string>('', { nonNullable: true, validators: [Validators.required, ssnValidator()] }),
@@ -57,10 +62,12 @@ export class NewPatientFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.formInputList = this.formInputsService.getFormInputs();
+    this.patient = this.patientService.getPatient(Number(this.patientId));
+    this.editPatientForm.setValue(this.patient);
   }
 
   onSubmit(): void {
-    this.patientService.newPatient(this.newPatientForm.getRawValue());
+    this.patientService.editPatient(Number(this.patientId), this.editPatientForm.getRawValue());
     this.router.navigate(['/homepage']);
   }
 }

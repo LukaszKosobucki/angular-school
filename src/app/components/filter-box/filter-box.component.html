@@ -1,4 +1,17 @@
-<div class="container">
+<form class="container" (ngSubmit)="onSubmit()" [formGroup]="searchBoxForm">
   <p>search by:</p>
-  <as-search-bar *ngFor="let searchObject of searchList" [searchObject]="searchObject"></as-search-bar>
-</div>
+  <div *ngFor="let searchObject of searchList">
+    <label for="search{{ searchObject.id }}">{{ searchObject.phrase }}</label>
+    <input
+      formControlName="{{ searchObject.id }}"
+      type="{{ searchObject.type }}"
+      class="form-control col-6"
+      placeholder="{{ searchObject.phrase }}"
+      aria-label="username"
+      aria-describedby="button-addon2"
+      id="search{{ searchObject.id }}"
+    />
+  </div>
+
+  <button [disabled]="searchBoxForm.invalid" class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+</form>

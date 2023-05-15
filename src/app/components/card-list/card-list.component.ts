@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { Card } from './card/card.component';
-import { CARDS } from 'src/mock-data';
+import { Component, OnInit } from '@angular/core';
+import { Card } from 'src/app/utils/mock-data';
+import { PatientService } from 'src/app/services/patient.service';
 
 @Component({
   selector: 'as-card-list',
@@ -9,6 +9,12 @@ import { CARDS } from 'src/mock-data';
 })
 
 //change this component name to patient-card-list
-export class CardListComponent {
-  cards: Card[] = CARDS;
+export class CardListComponent implements OnInit {
+  cards: Card[] = [];
+
+  constructor(private patientService: PatientService) {}
+
+  ngOnInit(): void {
+    this.patientService.getPatients().subscribe((cards) => (this.cards = cards));
+  }
 }

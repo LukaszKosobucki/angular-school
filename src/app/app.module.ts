@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { CardListComponent } from './components/card-list/card-list.component';
 import { CardComponent } from './components/card-list/card/card.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
@@ -14,15 +14,15 @@ import { DetailsPageComponent } from './pages/details-page/details-page.componen
 import { NewPatientComponent } from './pages/new-patient/new-patient.component';
 import { NewCardComponent } from './components/card-list/new-card/new-card.component';
 import { NewPatientFormComponent } from './components/new-patient-form/new-patient-form.component';
-import { FormInputComponent } from './components/new-patient-form/form-input/form-input.component';
 import { FilterBoxComponent } from './components/filter-box/filter-box.component';
 import { SortButtonComponent } from './components/sort-button/sort-button.component';
+import { EditPatientComponent } from './pages/edit-patient/edit-patient.component';
+import { EditPatientFormComponent } from './components/edit-patient-form/edit-patient-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    SearchBarComponent,
     CardListComponent,
     CardComponent,
     HomepageComponent,
@@ -32,11 +32,12 @@ import { SortButtonComponent } from './components/sort-button/sort-button.compon
     NewPatientComponent,
     NewCardComponent,
     NewPatientFormComponent,
-    FormInputComponent,
     FilterBoxComponent,
     SortButtonComponent,
+    EditPatientComponent,
+    EditPatientFormComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

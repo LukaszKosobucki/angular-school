@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Card } from '../card-list/card/card.component';
-import { CARDS } from 'src/mock-data';
+import { Card } from 'src/app/utils/mock-data';
+import { PatientService } from 'src/app/services/patient.service';
 
 @Component({
   selector: 'as-details',
@@ -9,11 +9,13 @@ import { CARDS } from 'src/mock-data';
 })
 //change this component name to patient-details
 export class DetailsComponent implements OnInit {
-  @Input() userId!: string | null;
+  @Input() patientId!: string | null;
 
-  userInfo!: Card;
+  patient!: Card;
+
+  constructor(private patientService: PatientService) {}
 
   ngOnInit() {
-    this.userInfo = CARDS[Number(this.userId)];
+    this.patient = this.patientService.getPatient(Number(this.patientId));
   }
 }

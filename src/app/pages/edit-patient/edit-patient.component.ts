@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'as-details-page',
-  templateUrl: './details-page.component.html',
-  styleUrls: ['./details-page.component.scss'],
+  selector: 'as-edit-patient',
+  templateUrl: './edit-patient.component.html',
+  styleUrls: ['./edit-patient.component.scss'],
 })
-export class DetailsPageComponent implements OnInit {
+export class EditPatientComponent implements OnInit {
   patientId: string | null = null;
 
   constructor(private route: ActivatedRoute) {}

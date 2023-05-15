@@ -1,9 +1,15 @@
 <div class="container">
-  <img src="{{ userInfo.img }}" alt="" />
-  <p>name: {{ userInfo.name }}</p>
-  <p>surname: {{ userInfo.surname }}</p>
-  <p>ssn: {{ userInfo.ssn }}</p>
-  <p>date of birth: {{ userInfo.date }}</p>
-  <p>phone number: {{ userInfo.phoneNumber }}</p>
-  <p>maybe some more info: ???</p>
+  <img src="{{ patient.img }}" alt="" />
+  <p>name: {{ patient.name }}</p>
+  <p>surname: {{ patient.surname }}</p>
+  <p>ssn: {{ patient.ssn }}</p>
+  <p>date of birth: {{ patient.date }}</p>
+  <p>phone number: {{ patient.phoneNumber }}</p>
+  <p>email: {{ patient.email }}</p>
+  <p>city: {{ patient.city }}</p>
+  <p>street: {{ patient.street }}</p>
+  <p>country: {{ patient.country }}</p>
+  <p>postcode: {{ patient.postcode }}</p>
+  <p>voivodeship: {{ patient.voivodeship }}</p>
+  <a routerLink="/edit-patient/{{ patientId }}" class="btn btn-primary">Edit patient info</a>
 </div>

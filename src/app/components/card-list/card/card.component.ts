@@ -1,14 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-export type Card = {
-  name: string;
-  surname: string;
-  date: string;
-  ssn: number;
-  phoneNumber: number;
-  img: string;
-};
-
+import { Card } from 'src/app/utils/mock-data';
 //change this component name to patient-card
 
 @Component({

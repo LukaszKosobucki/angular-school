@@ -1,4 +1,4 @@
-<form class="container" (ngSubmit)="onSubmit()" [formGroup]="newPatientForm">
+<form class="container" (ngSubmit)="onSubmit()" [formGroup]="editPatientForm">
   <div *ngFor="let formInput of formInputList">
     <label for="patient{{ formInput.id }}">{{ formInput.text }}</label>
     <input
@@ -10,5 +10,5 @@
     />
   </div>
 
-  <button type="submit" [disabled]="newPatientForm.invalid" class="btn btn-primary">Add new Patient</button>
+  <button [disabled]="editPatientForm.invalid" type="submit" class="btn btn-primary">Save Edit</button>
 </form>
