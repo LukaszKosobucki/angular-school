@@ -5,14 +5,14 @@ import { Card, CardName } from '../utils/mock-data';
   name: 'sortBy',
 })
 export class SortByPipe implements PipeTransform {
-  transform(value: Card[], order = true, param: 'name' | 'surname' | 'date' | 'ssn' = 'ssn'): Card[] {
-    return value.sort((a, b) => {
-      if (order) {
+  transform(value: Card[], order: 'asc' | 'desc' = 'asc', param: 'name' | 'surname' | 'date' | 'ssn' = 'ssn'): Card[] {
+    const result = [...value].sort((a, b) => {
+      if (order === 'asc') {
         if (param === 'date') {
           return new Date(a.date).getTime() - new Date(b.date).getTime();
         }
         return a[param as CardName].localeCompare(b[param as CardName]);
-      } else {
+      } else if (order === 'desc') {
         if (param === 'date') {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
         }
@@ -20,5 +20,7 @@ export class SortByPipe implements PipeTransform {
       }
       return 0;
     });
+    console.log(result);
+    return result;
   }
 }
