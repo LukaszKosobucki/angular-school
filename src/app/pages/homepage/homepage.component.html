@@ -1,5 +1,5 @@
 <div class="container-sm">
-  <as-filter-box [(multiFilter)]="multiFilter"></as-filter-box>
+  <as-filter-box [filterParams]="filterParams$ | async"></as-filter-box>
   <as-sort-bar [sortParams]="sortParams$ | async"></as-sort-bar>
-  <as-card-list [sortParams]="sortParams$ | async" [multiFilter]="multiFilter"></as-card-list>
+  <as-card-list [sortParams]="sortParams$ | async" [filterParams]="filterParams$ | async"></as-card-list>
 </div>

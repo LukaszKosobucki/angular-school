@@ -5,8 +5,8 @@
       <as-card
         *ngFor="
           let card of cards
-            | sortBy : sortParams.orderBy : sortParams.category
-            | filterBy : multiFilter.surname : multiFilter.phoneNumber : multiFilter.ssn : multiFilter.date;
+            | sortBy : sortParams?.orderBy : sortParams?.category
+            | filterBy : filterParams?.surname : filterParams?.phoneNumber : filterParams?.ssn : filterParams?.date;
           index as i
         "
         [card]="card"

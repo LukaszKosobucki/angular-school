@@ -1,6 +1,9 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs';
+import { FilterParams } from 'src/app/pages/homepage/homepage.component';
 
 type SearchObject = {
   phrase: string;
@@ -10,7 +13,7 @@ type SearchObject = {
 
 type SearchBoxForm = {
   surname: FormControl<string>;
-  date: FormControl<Date>;
+  date: FormControl<string>;
   ssn: FormControl<string>;
   phoneNumber: FormControl<string>;
 };
@@ -21,16 +24,14 @@ type SearchBoxForm = {
   styleUrls: ['./filter-box.component.scss'],
 })
 export class FilterBoxComponent implements OnInit {
-  @Input() multiFilter!: { surname: string; phoneNumber: string; ssn: string; date: Date };
-
-  @Output() multiFilterChange = new EventEmitter<{ surname: string; phoneNumber: string; ssn: string; date: Date }>();
+  @Input() filterParams!: FilterParams | null;
 
   searchBoxForm = new FormGroup<SearchBoxForm>({
     surname: new FormControl<string>('', {
       nonNullable: true,
       validators: [Validators.maxLength(120)],
     }),
-    date: new FormControl<Date>(new Date(), {
+    date: new FormControl<string>('', {
       nonNullable: true,
     }),
     ssn: new FormControl<string>('', {
@@ -50,26 +51,55 @@ export class FilterBoxComponent implements OnInit {
     { phrase: 'patient phone number', type: 'text', id: 'phoneNumber' },
   ];
 
+  constructor(private route: Router) {}
+
   onSubmit() {
     console.log(this.searchBoxForm.value);
   }
 
   ngOnInit() {
+    if (this.filterParams !== null) {
+      this.searchBoxForm.setValue({
+        ...this.filterParams,
+        date: this.filterParams.date.getTime() === 0 ? '' : this.filterParams.date.toISOString().substring(0, 10),
+      });
+    }
+
     this.searchBoxForm.controls['surname'].valueChanges.pipe(debounceTime(1000)).subscribe((value) => {
-      this.multiFilter.surname = value;
-      this.multiFilterChange.emit(this.multiFilter);
+      if (this.filterParams !== null) {
+        this.filterParams.surname = value;
+        this.route.navigate(['/homepage'], {
+          queryParams: this.filterParams,
+          queryParamsHandling: 'merge',
+        });
+      }
     });
     this.searchBoxForm.controls['ssn'].valueChanges.pipe(debounceTime(1000)).subscribe((value) => {
-      this.multiFilter.ssn = value;
-      this.multiFilterChange.emit(this.multiFilter);
+      if (this.filterParams !== null) {
+        this.filterParams.ssn = value;
+        this.route.navigate(['/homepage'], {
+          queryParams: this.filterParams,
+          queryParamsHandling: 'merge',
+        });
+      }
     });
     this.searchBoxForm.controls['phoneNumber'].valueChanges.pipe(debounceTime(1000)).subscribe((value) => {
-      this.multiFilter.phoneNumber = value;
-      this.multiFilterChange.emit(this.multiFilter);
+      if (this.filterParams !== null) {
+        this.filterParams.phoneNumber = value;
+        this.route.navigate(['/homepage'], {
+          queryParams: this.filterParams,
+          queryParamsHandling: 'merge',
+        });
+      }
     });
     this.searchBoxForm.controls['date'].valueChanges.pipe(debounceTime(1000)).subscribe((value) => {
-      this.multiFilter.date = new Date(value);
-      this.multiFilterChange.emit(this.multiFilter);
+      if (this.filterParams !== null) {
+        this.filterParams.date = new Date(value);
+        this.route.navigate(['/homepage'], {
+          queryParams: this.filterParams,
+          queryParamsHandling: 'merge',
+        });
+      }
     });
   }
 }

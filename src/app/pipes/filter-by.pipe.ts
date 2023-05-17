@@ -6,7 +6,6 @@ import { Card } from '../utils/mock-data';
 })
 export class FilterByPipe implements PipeTransform {
   transform(value: Card[], surname = '', phoneNumber = '', ssn = '', date: Date = new Date(0)): Card[] {
-    console.log(date);
     if (date.toString() === 'Invalid Date') {
       date = new Date(0);
     }

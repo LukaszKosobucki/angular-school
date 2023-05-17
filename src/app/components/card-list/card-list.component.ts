@@ -2,7 +2,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Card } from 'src/app/utils/mock-data';
 import { PatientService } from 'src/app/services/patient.service';
-import { MultiFilter, SortParams } from 'src/app/pages/homepage/homepage.component';
+import { FilterParams, SortParams } from 'src/app/pages/homepage/homepage.component';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -13,9 +13,14 @@ import { ActivatedRoute } from '@angular/router';
 
 //change this component name to patient-card-list
 export class CardListComponent implements OnInit {
-  @Input() sortParams!: SortParams;
+  @Input() sortParams: SortParams | null = { category: 'ssn', orderBy: 'asc' };
 
-  @Input() multiFilter!: MultiFilter;
+  @Input() filterParams: FilterParams | null = {
+    surname: '',
+    phoneNumber: '',
+    ssn: '',
+    date: new Date(0),
+  };
 
   cards: Card[] = [];
 
@@ -25,7 +30,5 @@ export class CardListComponent implements OnInit {
     this.patientService.getPatients().subscribe((cards) => {
       this.cards = cards;
     });
-    console.log(this.sortParams);
-    console.log('xddd', this.sortParams);
   }
 }

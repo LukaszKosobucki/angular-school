@@ -20,7 +20,6 @@ export class SortByPipe implements PipeTransform {
       }
       return 0;
     });
-    console.log(result);
     return result;
   }
 }

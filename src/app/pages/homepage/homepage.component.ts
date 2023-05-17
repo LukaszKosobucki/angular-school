@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
-export type MultiFilter = { surname: string; phoneNumber: string; ssn: string; date: Date };
+export type FilterParams = { surname: string; phoneNumber: string; ssn: string; date: Date };
 
 export type SortParams = { category: 'name' | 'surname' | 'date' | 'ssn'; orderBy: 'asc' | 'desc' };
 
@@ -12,20 +13,31 @@ export type SortParams = { category: 'name' | 'surname' | 'date' | 'ssn'; orderB
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements OnInit {
-  multiFilter: MultiFilter = { surname: '', phoneNumber: '', ssn: '', date: new Date(0) };
-
   sortParams$ = new BehaviorSubject<SortParams>({
     category: 'ssn',
     orderBy: 'asc',
+  });
+
+  filterParams$ = new BehaviorSubject<FilterParams>({
+    surname: '',
+    phoneNumber: '',
+    ssn: '',
+    date: new Date(),
   });
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      console.log('params', params);
-      this.sortParams$.next({ category: params['category'], orderBy: params['orderBy'] });
-      console.log(this.sortParams$);
+      this.sortParams$.next({ category: params['category'] ?? 'ssn', orderBy: params['orderBy'] ?? 'asc' });
+    });
+    this.route.queryParams.subscribe((params) => {
+      this.filterParams$.next({
+        surname: params['surname'] ?? '',
+        phoneNumber: params['phoneNumber'] ?? '',
+        ssn: params['ssn'] ?? '',
+        date: params['date'] !== undefined ? new Date(params['date'] as string) : new Date(0),
+      });
     });
   }
 }
