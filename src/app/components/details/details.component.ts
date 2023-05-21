@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Card } from 'src/app/utils/mock-data';
-import { PatientService } from 'src/app/services/patient.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'as-details',
@@ -13,9 +13,9 @@ export class DetailsComponent implements OnInit {
 
   patient!: Card;
 
-  constructor(private patientService: PatientService) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.patient = this.patientService.getPatient(Number(this.patientId));
+    this.patient = this.route.snapshot.data['patient'];
   }
 }

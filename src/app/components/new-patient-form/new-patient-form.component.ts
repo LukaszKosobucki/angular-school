@@ -62,8 +62,10 @@ export class NewPatientFormComponent implements OnInit {
 
   onSubmit(): void {
     const patient = this.newPatientForm.getRawValue();
-    this.patientService.newPatient({ ...patient, date: patient.date.toLocaleDateString() });
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    this.router.navigate(['/homepage']);
+    console.log(patient.date);
+    this.patientService.newPatient({ ...patient, date: new Date(patient.date).toLocaleDateString() }).subscribe(() => {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      this.router.navigate(['/homepage']);
+    });
   }
 }

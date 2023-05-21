@@ -1,25 +1,30 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Card, CARDS } from 'src/app/utils/mock-data';
+import { Observable } from 'rxjs';
+import { Card } from 'src/app/utils/mock-data';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PatientService {
+  private baseURL = 'http://localhost:3000/api/patients';
+
+  constructor(private httpClient: HttpClient) {}
+
   getPatients(): Observable<Card[]> {
-    const patients = of(CARDS);
-    return patients;
+    return this.httpClient.get<Card[]>(`${this.baseURL}`);
   }
 
-  getPatient(index: number): Card {
-    return CARDS[index];
+  getPatient(ssn: number): Observable<Card> {
+    return this.httpClient.get<Card>(`${this.baseURL}/${ssn}`);
   }
 
-  newPatient(patient: Card): void {
-    CARDS.push(patient);
+  newPatient(patient: Card): Observable<Object> {
+    return this.httpClient.post(`${this.baseURL}`, patient);
   }
 
-  editPatient(index: number, patient: Card): void {
-    CARDS[index] = patient;
+  editPatient(index: number, patient: Card): Observable<Object> {
+    return this.httpClient.put(`${this.baseURL}/${index}`, patient);
   }
 }

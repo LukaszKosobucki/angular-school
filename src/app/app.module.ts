@@ -19,6 +19,8 @@ import { EditPatientComponent } from './pages/edit-patient/edit-patient.componen
 import { EditPatientFormComponent } from './components/edit-patient-form/edit-patient-form.component';
 import { SortByPipe } from './pipes/sort-by.pipe';
 import { FilterByPipe } from './pipes/filter-by.pipe';
+import { HttpClientModule } from '@angular/common/http';
+import { noSavedChangesGuard } from './guards/no-saved-changes.guard';
 
 @NgModule({
   declarations: [
@@ -39,8 +41,8 @@ import { FilterByPipe } from './pipes/filter-by.pipe';
     SortByPipe,
     FilterByPipe,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
-  providers: [],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, HttpClientModule],
+  providers: [noSavedChangesGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

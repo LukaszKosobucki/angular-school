@@ -6,11 +6,9 @@
         *ngFor="
           let card of cards
             | sortBy : sortParams?.orderBy : sortParams?.category
-            | filterBy : filterParams?.surname : filterParams?.phoneNumber : filterParams?.ssn : filterParams?.date;
-          index as i
+            | filterBy : filterParams?.surname : filterParams?.phoneNumber : filterParams?.ssn : filterParams?.date
         "
         [card]="card"
-        [index]="i"
         class="col-3"
       ></as-card>
     </div>

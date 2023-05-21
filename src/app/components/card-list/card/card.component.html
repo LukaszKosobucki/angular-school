@@ -5,6 +5,6 @@
     <p class="card-text">date of birth: {{ card.date }}</p>
     <p class="card-text">ssn: {{ card.ssn }}</p>
     <p class="card-text">phone number: {{ card.phoneNumber }}</p>
-    <a routerLink="/patient-details/{{ index }}" class="stretched-link" (click)="openDetails()"></a>
+    <a routerLink="/patient-details/{{ card.ssn }}" class="stretched-link" (click)="openDetails()"></a>
   </div>
 </div>

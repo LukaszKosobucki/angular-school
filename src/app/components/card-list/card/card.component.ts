@@ -10,8 +10,6 @@ import { Card } from 'src/app/utils/mock-data';
 export class CardComponent {
   @Input() card!: Card;
 
-  @Input() index!: number;
-
   openDetails() {
     console.log('change to details');
   }
